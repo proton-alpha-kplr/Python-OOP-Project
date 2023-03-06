@@ -15,6 +15,10 @@ class InventoryProductEntry:
         la variable 'expenses' qui stocke le total des dépenses pour restocker le produit
         
         """
+        self.product = product
+        self.quantity = quantity
+        sales = 0
+        expenses = 0
 
     #Méthode Sell
     """
@@ -36,6 +40,11 @@ class InventoryProductEntry:
             Retourner Vrai
         
         """
+        if(self.quantity < quantity):
+            print(f"Le stock du produit {self.product.name} est insuffisant.")
+        else:
+            self.quantity -= quantity
+            self.sales += self.product.price
     
     #Méthode Restock
     """
