@@ -1,6 +1,15 @@
 # Vous allez créer une classe InventoryProductEntry qui a pour role 
 # de représenter une entrée d'inventaire pour un produit spécifique.
 
+
+class Product:
+        def __init__(self, cost, price, marque):
+                self.cost = cost
+                self.price = price
+                self.marque = marque
+                self.name=type(self).__name__
+
+
 class InventoryProductEntry:
     # Initialisation de la classe, en prenant en argument un objet Product et une quantité initiale
     def __init__(self, product:Product, quantity):
@@ -42,9 +51,11 @@ class InventoryProductEntry:
         """
         if(self.quantity < quantity):
             print(f"Le stock du produit {self.product.name} est insuffisant.")
+            return(False)
         else:
             self.quantity -= quantity
-            self.sales += self.product.price
+            self.sales += quantity * self.product.price
+            return(True)
     
     #Méthode Restock
     """
