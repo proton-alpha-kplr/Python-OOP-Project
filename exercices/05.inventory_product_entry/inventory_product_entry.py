@@ -54,7 +54,7 @@ class InventoryProductEntry:
             return(False)
         else:
             self.quantity -= quantity
-            self.sales += quantity * self.product.price
+            self.sales += (quantity * self.product.price)
             return(True)
     
     #Méthode Restock
@@ -67,6 +67,8 @@ class InventoryProductEntry:
         Ajouter la quantité reçue à la quantité en stock
         Ajouter le coût total de la nouvelle quantité reçue  à la variable 'expenses' en multipliant la quantité reçue par le coût du produit
         """
+        self.quantity += quantity
+        self.expenses += (quantity * self.product.cost)
 
     #Méthode repr
     """
@@ -76,3 +78,13 @@ class InventoryProductEntry:
     """
     def __repr__(self):
         # Retourner une chaîne de caractères formatée contenant le nom du produit, la marque, la quantité en stock et le prix du produit.
+        caract_produit = f"Nom du produit : {self.product.name}\nMarque : {self.product.marque}\nQuantité en stock : {self.quantity}\nPrix du produit : {self.product.price} €"
+        return(caract_produit)
+
+
+
+# monproduit = Product(50,100,"PEPOUZE")
+# machaise1 = InventoryProductEntry(monproduit, 50)
+
+
+# print(repr(machaise1))

@@ -1,5 +1,8 @@
 #La classe "InventoryManager" est une classe qui permet de gérer un inventaire de produits. 
 
+from 'exercices.05.inventory_product_entry.inventory_product_entry' import InventoryProductEntry
+
+
 class InventoryManager:
     # Initialisation de la classe
     def __init__(self):
@@ -13,6 +16,7 @@ class InventoryManager:
     Si c'est le cas, la fonction retourne True, sinon elle retourne False.
     """
     def product_exists(self,product:Product):
+        return(product.name in self.inventory)
         """
         pour chaque 'inventory_product_entry_key' dans self.inventory faire:
             si 'inventory_product_entry_key' est égal à product.name alors:
@@ -33,7 +37,14 @@ class InventoryManager:
             Créer un nouvel objet InventoryProductEntry en utilisant le produit et la quantité fournis
             Ajouter le nouvel objet au dictionnaire 'inventory'
         """
-    
+        if self.product_exists(product.name):
+            print("Le produit existe déjà dans l'inventaire")
+        else:
+            return(InventoryProductEntry(product,quantity))
+            self.inventory[product.name] = quantity
+
+
+
     #Méthode remove_product
     """
     La méthode remove_product est utilisée pour supprimer un produit de l'inventaire.
@@ -43,6 +54,11 @@ class InventoryManager:
         #Utiliser la méthode product_exists pour vérifier si le produit existe dans l'inventaire
         #Si le produit est trouvé, supprimer le de l'inventaire
         #Sinon, afficher un message d'erreur indiquant que le produit n'a pas été trouvé
+        if not self.product_exists(product_name):
+            print("Le produit n'existe pas dans l'inventaire")
+        else:
+            del(self.inventory[product_name])
+
     
     #Méthode sell_product
     """
