@@ -4,9 +4,20 @@ from unidecode import unidecode
 import re
 import os
 
+
+def trimspaces(data):
+    # Define a regular expression pattern to match quoted substrings
+    pattern = r'"[^"]*"'
+    # Replace spaces and hyphens with underscore
+    #return re.sub(pattern, lambda m: m.group(0).replace(" ", "_").replace("-", "_"), str(unidecode(json.dumps(data))))
+    data_s=json.dumps(data)
+    return re.sub(pattern, lambda m: m.group(0).replace(" ", "_").replace("-", "_"), data_s)
+
+
 # Charger des données JSON à partir du fichier dans un dictionnaire python
 local_path = os.path.dirname(os.path.abspath(__file__))
 json_data = json.load(open(os.path.join(local_path, 'json_data.json'), "rb"))
+json_data = trimspaces(json_data)
 
 # Reconvertir le dictionnaire en chaine de caractere pour le traiter ensuite
 json_str = json.dumps(json_data)
@@ -14,9 +25,14 @@ json_str = json.dumps(json_data)
 # Utilisation de la fonction unidecode pour enlever les accents et autres caractères spéciaux
 json_data = (unidecode(json_str))
 
+
+
 # Conversion de la chaine de caractere JSON à nouveau en dictionnaire Python
 # Le dictionnaire python est plus pratique à manipuler que la chaine de caractère car il est structuré
 json_dict = json.loads(json_data)
+
+
+
 
 
 """
@@ -35,7 +51,8 @@ def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclas
     class_defs = ""
     #pour chaque nom de classe (class_name) et attribut de cette dernière (class_attrs) dans les éléments de  json_dict
     for key, value in json_dict.items():
-        if (isinstance(value, dict)) :
+        if (isinstance(value, dict)) : #après correction : c'est INUTILE, car ils vont toujours être des dictionnaires...
+
         #Générer la définition de la classe avec la méthode generate_class_def() en passant les arguments superclass_name et superclass_args comme entrées
         #Concaténer la définition de la classe à la chaîne de caractères class_def
             attributs = {}
@@ -45,6 +62,9 @@ def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclas
                     va = va.replace(" ","_").replace("-","_")
                     attributs[va] = str
             
+            #après avoir vu la correction, il est également INUTILE d'exclure les subclasses avant de lui donner en paramètre de generate_class_def 
+            #parce que generate_class_def le fait déjà toute seule
+
             class_defs += generate_class_def(key.replace(" ","_").replace("-","_"), attributs, superclass_name, superclass_args)
 
         #Ensuite, vérifier la présence des sous-classes dans la classe courante
@@ -57,6 +77,7 @@ def generate_class_hierarchy(json_dict :dict, superclass_name:str=None,superclas
 
                 #-Puis, supprimer l'attribut 'subclasses' à partir de la liste créée
                 #super_attr.pop(super_attr.index("subclasses"))
+                #je n'ai pas eu besoin d'exclure les subclasses, car je l'avais fait (INUTILEMENT...) plus haut
 
         #Ensuite, faire une récursion pour générer la définition de la sous-classe en utilisant la méthode generate_class_hierarchy
         #- En passant le nom de la classe courante en tant que superclass_name et la liste super_attr en tant que superclass_args

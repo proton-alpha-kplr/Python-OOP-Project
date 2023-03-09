@@ -22,12 +22,11 @@ class InventoryProductEntry:
         Vous devez initialiser deux variables. 
         la variable 'sales' qui stocke le total des revenues des ventes du produit
         la variable 'expenses' qui stocke le total des dépenses pour restocker le produit
-        
         """
         self.product = product
         self.quantity = quantity
-        sales = 0
-        expenses = 0
+        self.sales = 0
+        self.expenses = 0
 
     #Méthode Sell
     """
@@ -83,8 +82,7 @@ class InventoryProductEntry:
 
 
 
-# monproduit = Product(50,100,"PEPOUZE")
-# machaise1 = InventoryProductEntry(monproduit, 50)
+monproduit = Product(50,100,"PEPOUZE")
+machaise1 = InventoryProductEntry(monproduit, 50)
 
-
-# print(repr(machaise1))
+print(repr(machaise1))
