@@ -30,7 +30,7 @@ class TestInventoryManager(unittest.TestCase):
          -assertIn est une méthode fournie par le module unittest de Python qui vérifie si le premier argument est contenu dans le second argument.
         """
         self.inventory_manager.add_product(self.chaise, 5)
-        self.assertIn( "Chaise" , self.inventory_manager.inventory)
+        self.assertIn( self.chaise.name, self.inventory_manager.inventory)
 
 
 
@@ -47,7 +47,7 @@ class TestInventoryManager(unittest.TestCase):
         """
         self.inventory_manager.add_product(self.pantalon, 5)
         self.inventory_manager.remove_product(self.pantalon)
-        self.assertNotIn( "Pantalon" , self.inventory_manager.inventory)
+        self.assertNotIn( self.pantalon.name , self.inventory_manager.inventory)
 
 
 
@@ -62,7 +62,7 @@ class TestInventoryManager(unittest.TestCase):
         """  
         self.inventory_manager.add_product(self.pantalon, 5)
         self.inventory_manager.sell_product(self.pantalon, 2)
-        self.assertEqual(self.inventory_manager.inventory["Pantalon"].quantity, 3)
+        self.assertEqual(self.inventory_manager.inventory[self.pantalon.name].quantity, 3)
 
 
         
@@ -75,7 +75,7 @@ class TestInventoryManager(unittest.TestCase):
         """
         self.inventory_manager.add_product(self.chaise, 10)
         self.inventory_manager.restock_product(self.chaise, 5)
-        self.assertEqual(self.inventory_manager.inventory["Chaise"].quantity, 15)
+        self.assertEqual(self.inventory_manager.inventory[self.chaise.name].quantity, 15)
 
 
 
@@ -88,8 +88,8 @@ class TestInventoryManager(unittest.TestCase):
          -Vérification que la chaise récupérée est bien celle ajoutée précédemment avec la méthode assertEqual
         """
         self.inventory_manager.add_product(self.chaise, 5)
-        machaise = self.inventory_manager.get_product("Chaise")
-        self.assertEqual(machaise, self.inventory_manager.inventory["Chaise"])
+        machaise = self.inventory_manager.get_product(self.chaise.name)
+        self.assertEqual(machaise, self.inventory_manager.inventory[self.chaise.name])
         
 
 
@@ -114,11 +114,13 @@ class TestInventoryManager(unittest.TestCase):
 # Exécuter le code     
 if __name__ == '__main__':
     unittest.main()
-    self.test_add_product()
-    self.test_remove_product()
-    self.test_sell_product()
-    self.test_restock_product()
-    self.test_get_product()
-    self.test_list_products()
+    # self.test_add_product()
+    # self.test_remove_product()
+    # self.test_sell_product()
+    # self.test_restock_product()
+    # self.test_get_product()
+    # self.test_list_products()
+
+
 
 
