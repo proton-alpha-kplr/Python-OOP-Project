@@ -30,6 +30,7 @@ class ProfitTracker:
             return(False)
         else:
             self.balance -= product.cost*quantity
+            print(f"Balance après achat du produit {product.name}")
             return(True)
 
 
